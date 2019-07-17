@@ -21,6 +21,8 @@ Route::get('/', ['middleware' => 'guest', function () {
     return view('index');
 }]);
 
+Route::get('/sendmail', 'UserController@sendEmail');
+
 
 Route::group(['prefix' => 'api'], function(){
 

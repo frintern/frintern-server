@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository, User $user, Education $education, Experience $experience)
     {
-        $this->middleware('jwt.auth');
+        $this->middleware('jwt.auth', ['except' => ['sendEmail']]);
 
         $this->userRepository = $userRepository;
         $this->resourceRepository = new ResourceRepository();
@@ -92,13 +92,13 @@ class UserController extends Controller
             // insert a new follow relationship
             Follow::insert($follow);
         }
-        
+
         $data = [
             'user' => User::find($request->get('user_id')),
             'followed_by' => $currentUser
         ];
-        
-        Mail::send('emails.follow', ['data' => $data], function($message) use($data){
+
+        Mail::send('emails.follow', ['data' => $data], function ($message) use ($data) {
             $message->from("notification@meetrabbi.com", "MeetRabbi");
             $message->to($data['user']->email, $data['user']->name);
             $message->subject($data['followed_by']->first_name . " is now following you on MeetRabbi!");
@@ -131,7 +131,6 @@ class UserController extends Controller
                 ->where('user_id', $userToUnfollow)
                 ->where('followed_by', $currentUser['id'])
                 ->delete();
-
         }
 
         return APIHandler::response(1, "You have unfollowed this user.");
@@ -159,14 +158,14 @@ class UserController extends Controller
 
             $followerIds = [];
             $ffs = count($mutualFollowing) > 0 ? array_merge($following, $mutualFollowing) : $following;
-            foreach($ffs as $following) {
+            foreach ($ffs as $following) {
                 array_push($followerIds, $following->follower_id);
             }
             array_push($followerIds, $currentUser['id']);
             $data['people'] =  User::select('users.*')->whereNotIn('id', $followerIds)->get();
 
             return APIHandler::response(1, "People", $data);
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             return APIHandler::response(0, $ex->getMessage());
         }
     }
@@ -196,14 +195,11 @@ class UserController extends Controller
 
             // Update user status to onboarded
             User::where('id', $currentUser['id'])->update(['status' => 2]);
-
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
 
         return APIHandler::response(1, "User onboarded", $data);
-
     }
 
 
@@ -216,7 +212,6 @@ class UserController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         return $this->userRepository->getUserProfileData($user['id']);
-
     }
 
     /**
@@ -231,7 +226,7 @@ class UserController extends Controller
 
         return $userProfile;
     }
-    
+
     /**
      * Become a mentor
      * @param $id
@@ -266,7 +261,6 @@ class UserController extends Controller
         $data['following'] = $this->userRepository->getFollowing($id);
 
         return APIHandler::response(1, "Followers", $data);
-
     }
 
 
@@ -310,12 +304,12 @@ class UserController extends Controller
         });
     }
 
-    
+
     public function updateBasicProfile(Request $request)
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
         $params = $request->only(['first_name', 'account_type', 'last_name', 'name', 'location', 'about', 'gender', 'headline']);
-        
+
         $validator = Validator::make($params, [
             'first_name' => 'string',
             'last_name' => 'string',
@@ -342,7 +336,7 @@ class UserController extends Controller
         $this->userRepository->storeInterests($currentUser['id'], $interests);
         return response()->json(['message' => 'Interest updated']);
     }
-    
+
     public function getExpertise()
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
@@ -388,16 +382,12 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Your profile picture has been updated.']);
     }
-    
+
     public function updateEducation()
-    {
-        
-    }
-    
+    { }
+
     public function updateExperience()
-    {
-        
-    }
+    { }
 
     public function getUsersWithMentorApplication()
     {
@@ -413,6 +403,16 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function sendEmail()
+    {
+        $user = User::find(62);
 
-
+        Mail::send('emails.test', ['data' => $user], function ($message) {
+            $message->from('hello@frintern.com', 'John Doe');
+            $message->sender('hello@frintern.com', 'John Doe');
+            $message->to('jideowosakin@gmail.com', 'John Doe');
+            $message->subject('Helo');
+            $message->priority(1);
+        });
+    }
 }

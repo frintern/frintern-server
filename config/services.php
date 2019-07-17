@@ -36,9 +36,9 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '1682670775322787',
-        'client_secret' => 'ae2583db4b0d69a65dd0b59fa3cc043a',
-        'redirect' => 'http://www.meetrabbi.com/login/facebook',
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_SECRET_KEY'),
+        'redirect' => env('FACEBOOK_REDIRECT'),
     ],
 
     'google' => [
@@ -48,15 +48,15 @@ return [
     ],
 
     'linkedin' => [
-        'client_id' => '77ch44vedai0xn',
-        'client_secret' => 'yfivnL6tqCmtZVRV',
-        'redirect' => 'http://www.meetrabbi.com/auth/linkedin',
+        'client_id' => env('LINKEDIN_ID'),
+        'client_secret' => env('LINKEDIN_SECRET'),
+        'redirect' => env('LINKEDIN_REDIRECT'),
     ],
 
     'twitter' => [
-        'client_id'    => 'RZANZ8cPw1bR0gST1T989EW3k',
-        'client_secret' => 'A6vHse5OlOc7oV9ML9qqllc1bqK5EpklPDj8kAv7KkPobqEzm0',
-        'redirect'  => 'https://www.meetrabbi.com',
+        'client_id'    => env('TWITTER_ID'),
+        'client_secret' => env('TWITTER_SECRET'),
+        'redirect'  => env('TWITTER_REDIRECT'),
 
     ],
 

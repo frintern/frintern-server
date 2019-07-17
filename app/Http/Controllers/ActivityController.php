@@ -42,17 +42,13 @@ class ActivityController extends Controller
 
         $validator = Validator::make($activity, Activity::rules());
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return APIHandler::response(0, $validator->errors(), 400);
         }
 
-        try
-        {
+        try {
             Activity::insert($activity);
-        }
-        catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return APIHandler::response(0, "Unable to create activity.", 400);
         }
 
@@ -69,15 +65,13 @@ class ActivityController extends Controller
     {
         $validator  = Validator::make(['id' => $id], ['id' => 'required|integer']);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return APIHandler::response(0, $validator->errors(), 400);
         }
 
         $activity = Activity::find($id);
 
         return APIHandler::response(1, "Activity", $activity);
-
     }
 
     /**
@@ -99,23 +93,17 @@ class ActivityController extends Controller
 
         $validator = Validator::make($updates, Activity::rules());
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return APIHandler::response(0, $validator->errors(), 400);
         }
 
-        try
-        {
+        try {
             Activity::where('id', $id)->update($updates);
-
-        }
-        catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return APIHandler::response(0, $ex->getMessage(), 400);
         }
 
         return APIHandler::response(1, "Activity has been successfully updated");
-
     }
 
     /**
