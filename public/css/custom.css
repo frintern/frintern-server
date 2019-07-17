@@ -1,0 +1,47 @@
+.about-top-img {
+    background-image:url('http://placehold.it/1920x1080');
+    background-repeat:no-repeat !important;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 450px;
+    position: relative;
+    background-position: bottom;
+}
+.about-top-img .effect-over {
+    background: rgba(0, 0, 0, 0.2);
+}
+.effect-about2-over {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.about-sl-txt {
+    margin-top: 120px;
+}
+
+.about-top-title {
+    text-align: left;
+    font-family: 'Open sans',sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 60px;
+}
+
+.one-page-header .navbar-brand span {
+    color: #27d7e7 !important;
+}
+
+.panel-profile {
+    box-shadow: 0 0 2px rgba(238, 238, 238, 0.7);
+}
+
+

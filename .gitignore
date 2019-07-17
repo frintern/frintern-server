@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+/.idea
+_windows
+/.idea/workspace.xml
+.env
+/public/node_modules
