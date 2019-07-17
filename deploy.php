@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'frintern-api');
 
 // Project repository
-set('repository', 'git@github.com:frintern/frintern-api.git');
+set('repository', 'git@github.com:frintern/frintern-server.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
