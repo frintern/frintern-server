@@ -56,6 +56,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
+            $careerFits = '';
             $userData = $request->only([
                 'firstName',
                 'lastName',
@@ -67,9 +68,11 @@ class AuthController extends Controller
                 'password',
                 'careerFit'
                 ]);
-            $careerPathIds = array_pluck($userData['careerFit']['paths'], 'id');
-            $careerPaths = CareerPath::whereIn('id', $careerPathIds)->get()->toArray();
-            $careerFits = implode(", ", array_pluck($careerPaths, 'name'));
+            if (array_key_exists('paths', $userData['careerFit'])) {
+                $careerPathIds = array_pluck($userData['careerFit']['paths'], 'id');
+                $careerPaths = CareerPath::whereIn('id', $careerPathIds)->get()->toArray();
+                $careerFits = implode(", ", array_pluck($careerPaths, 'name'));
+            }
 
             $validator = $this->user->validate($userData);
             if ($validator->fails()) {
@@ -78,9 +81,13 @@ class AuthController extends Controller
 
             $userData['verificationCode'] = Keygen::numeric(6)->generate();
             $user = $this->userRepository->saveNew($userData);
-            $slackNotificationData = $this->extractSlackNotificationData($userData, $careerFits);
-            $user->careerPaths()->attach($careerPathIds);
-            Notification::send(Admin::first(), new CareerPathSaved($slackNotificationData));
+
+            if (!empty($careerFits)) {
+                $slackNotificationData = $this->extractSlackNotificationData($userData, $careerFits);
+                $user->careerPaths()->attach($careerPathIds);
+                Notification::send(Admin::first(), new CareerPathSaved($slackNotificationData));
+            }
+            
             $token = JWTAuth::fromUser($user);
             Event::fire(new AccountWasCreated($user, $userData['verificationCode']));
         } catch (\Exception $ex) {
