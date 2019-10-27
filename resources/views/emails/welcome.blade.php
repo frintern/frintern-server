@@ -8,7 +8,7 @@
         -->
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+https://skillguides.byfrintern.com<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Welcome to Frintern</title>
 
@@ -70,7 +70,7 @@
                         <p>
                         <p>
                             Here is your activation code: <h2>{{$verificationCode}}</h2>
-                            <a href="https://skillguides.byfrintern.com/dashboard">Click here</a> to activate your account and start tracking your learning.</p>
+                            <a href="https://techcareers.byfrintern.com/dashboard">Click here</a> to activate your account and start tracking your learning.</p>
                         </p>
                         <p>
                             Thank you for signing up for Frintern's learning program, we appreciate you.
@@ -84,7 +84,7 @@
                         <p>
                             <ul>
                                 <li>
-                                    You can self learn by going through the learning guides <a href="https://skillguides.byfrintern.com">here</a>. Just select the skill you want to learn and follow the prompts. It will guide you through it. <br/>
+                                    You can self learn by going through the learning guides <a href="https://techcareers.byfrintern.com">here</a>. Just select the skill you want to learn and follow the prompts. It will guide you through it. <br/>
                                 </li>
                                 <li>
                                     To join the Community/Learning Lab where you will be guided through the learning experience click <a href="https://goo.gl/forms/OjZvr0A0VuCF3ESu1">here</a> to sign up and get access for our next class which starts in January after the break.
